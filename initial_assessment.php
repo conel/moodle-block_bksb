@@ -181,6 +181,13 @@ if ($user_id != 0) {
     } else {
         $course_students = $bksb->getStudentsForCourse($course->id);
     }
+	
+	$course_students2 = array();
+	foreach ($course_students as $student) 
+		if ($bksb->getResults($student->idnumber)!== false) $course_students2[$student->id] = $student;
+	
+	$course_students = $course_students2;
+		    
     $table->pagesize($perpage, count($course_students));
     $table->setup();
     $offset = $page * $perpage;
@@ -188,6 +195,7 @@ if ($user_id != 0) {
     $no_students = count($students);
 
     if ($no_students > 0) {
+        
         foreach ($students as $student) {
             Cache1::init('user-'.$student->idnumber.'-ia-results.cache', $bksb->cache_life);
             if (Cache1::cacheFileExists()) {
