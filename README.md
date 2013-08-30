@@ -17,6 +17,6 @@ https://vle.conel.ac.uk/admin/blocks.php
 
 Unmatched users:
 
-http://moodle2:1234/blocks/bksb/admin/unmatched_users.php
+https://vle.conel.ac.uk/blocks/bksb/admin/unmatched_users.php
 
 (There is a link from the quick reference block to this page)
