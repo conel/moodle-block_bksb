@@ -20,3 +20,13 @@ Unmatched users:
 https://vle.conel.ac.uk/blocks/bksb/admin/unmatched_users.php
 
 (There is a link from the quick reference block to this page)
+
+BKSB links:
+
+home page: bksb2
+
+students login / register page: http://bksb2/bksb_portal/
+
+reporting: http://bksb2/bksb_reporting/
+
+learner result: http://bksb2/bksb_Reporting/LearnerResults.aspx

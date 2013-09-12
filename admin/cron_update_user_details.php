@@ -22,15 +22,11 @@ $bksb->syncUserDobAndPostcode();
 
 // Second part of cron is to find all invalid BKSB users and then update all matched users
 $invalid_users = $bksb->getInvalidBksbUsers();
-$no_invalids = count($invalid_users);
 
-/*
-print "invalid_users:\n";
-print_r($invalid_users);
-print "no_invalids: $no_invalids";
-*/
-
-//exit;
+//$no_invalids = count($invalid_users);
+//print "invalid_users:\n";
+//print_r($invalid_users);
+//print "no_invalids: $no_invalids";
 
 if ($no_invalids > 0) {
     $bksb->updateInvalidUsers($invalid_users);

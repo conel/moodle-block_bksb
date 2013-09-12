@@ -768,7 +768,7 @@ class BksbReporting {
                     unset($invalid_users[$key]);
                     $no_users_updated++;
                 }
-                
+               
             }
 
         } // foreach
@@ -1326,10 +1326,10 @@ class BksbReporting {
             }
 
             // Display how many duplicate users were removed
-            if ($notify === TRUE) {
+            //if ($notify === TRUE) {
                 $user_txt = ($no_dupes_deleted > 1) ? 'users' : 'user';
                 echo "Removed $no_dupes_deleted duplicate $user_txt" . PHP_EOL;
-            }
+            //}
             
         }
         
@@ -1337,6 +1337,13 @@ class BksbReporting {
     
     
     public function updateBksbData($old_username='', $new_username='', $firstname='', $lastname='') {
+		
+	   //remove all the bloody invalid characters that's coming from BKSB and break this loosy script
+       $old_username = preg_replace('/[^a-z\d ]/i', '', $old_username);  
+       $new_username = preg_replace('/[^a-z\d ]/i', '', $new_username);  
+       $firstname    = preg_replace('/[^a-z\d ]/i', '', $firstname);  
+       $lastname     = preg_replace('/[^a-z\d ]/i', '', $lastname);          
+                
         if ($old_username != '' && $new_username != '' && $firstname != '' && $lastname != '') {
         
             // Find which bksb tables contain this username and need to be updated
@@ -1627,6 +1634,7 @@ class BksbReporting {
         $query = "SELECT STUDENT_ID, TO_CHAR(DATE_OF_BIRTH, 'DD/MM/YYYY') AS DOB, POST_CODE FROM FES.MOODLE_PEOPLE WHERE POST_CODE != 'ZZ99 ZZZ'";
 
         $ebs_users = array();
+        
         if ($users = $mis->Execute($query)) {
             while (!$users->EOF) {
                 $ebs_users[] = array(
@@ -1637,7 +1645,9 @@ class BksbReporting {
                 $users->moveNext();
             }
         }
-
+		
+		//print_r($users);
+		
         $users_updated = 0;
         foreach ($ebs_users as $user) {
             // Check if user exists in Moodle users table
@@ -1648,9 +1658,15 @@ class BksbReporting {
                 if ($DB->update_record('user', $exists)) {
                     $users_updated++;
                 }
+				
+				//print_r($exists);
+				
             }
         }
+        
         //echo 'Number of users updated: ' . $users_updated;
+        
+        //exit;
     }
 
     public function __destruct() {
